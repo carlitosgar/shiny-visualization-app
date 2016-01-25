@@ -1,0 +1,18 @@
+{
+    "contents" : "# Authors:\n# Carlos García @ cm.garsua@gmail.com\n# Adam Alpire @ am.rivero13@gmail.com\n\npercent_map <- function(var, color, legend.title, min = 0, max = 100) {\n  \n  # generate vector of fill colors for map\n  shades <- colorRampPalette(c(\"white\", color))(100)\n  \n  # constrain gradient to percents that occur between min and max\n  var <- pmax(var, min)\n  var <- pmin(var, max)\n  percents <- as.integer(cut(var, 100, \n                             include.lowest = TRUE, ordered = TRUE))\n  fills <- shades[percents]\n  \n  # plot choropleth map\n  \n  map(\"world\", fill = TRUE, col = fills, \n      resolution = 0, lty = 0, projection = \"polyconic\", \n      myborder = 0, mar = c(0,0,0,0))\n  \n  # overlay state borders\n  #map(\"state\", col = \"white\", fill = FALSE, add = TRUE,\n      #lty = 1, lwd = 1, projection = \"polyconic\", \n      #myborder = 0, mar = c(0,0,0,0))\n  \n  # add a legend\n  inc <- (max - min) / 4\n  legend.text <- c(paste0(min, \" % or less\"),\n                   paste0(min + inc, \" %\"),\n                   paste0(min + 2 * inc, \" %\"),\n                   paste0(min + 3 * inc, \" %\"),\n                   paste0(max, \" % or more\"))\n  \n  legend(\"bottomleft\", \n         legend = legend.text, \n         fill = shades[c(1, 25, 50, 75, 100)], \n         title = legend.title)\n}",
+    "created" : 1453679596881.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1281291790",
+    "id" : "DF57F713",
+    "lastKnownWriteTime" : 1453681432,
+    "path" : "~/Projects/R/Visualization/ShinyApp/helpers.R",
+    "project_path" : "helpers.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

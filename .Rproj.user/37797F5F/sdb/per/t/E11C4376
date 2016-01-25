@@ -1,0 +1,17 @@
+{
+    "contents" : "# Authors:\n# Carlos García @ cm.garsua@gmail.com\n# Adam Alpire @ am.rivero13@gmail.com\n\nlibrary(shiny)\nsource(\"helpers.R\")\neurope <- read.csv(\"./data/europe.csv\")\n#counties <- readRDS(\"data/counties.rds\")\nlibrary(maps)\nlibrary(mapproj)\n\nshinyServer(\n  function(input, output) {\n    output$map <- renderPlot({\n      #args <- switch(input$var,\n                     #\"Percent White\" = list(counties$white, \"darkgreen\", \"% White\"),\n                     #\"Percent Black\" = list(counties$black, \"black\", \"% Black\"),\n                     #\"Percent Hispanic\" = list(counties$hispanic, \"darkorange\", \"% Hispanic\"),\n                     #\"Percent Asian\" = list(counties$asian, \"darkviolet\", \"% Asian\"))\n      args <- list(europe$GDP, \"darkgreen\", \"GDP\")\n      args$min <- input$range[1]\n      args$max <- input$range[2]\n      \n      do.call(percent_map, args)\n    })\n  }\n)",
+    "created" : 1453679079928.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "35223701",
+    "id" : "E11C4376",
+    "lastKnownWriteTime" : 1453680973,
+    "path" : "~/Projects/R/Visualization/ShinyApp/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
