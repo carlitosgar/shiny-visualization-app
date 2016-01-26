@@ -4,26 +4,33 @@
 
 
 library(shiny)
-
+require(rCharts)
 shinyUI(fluidPage(
-  titlePanel("censusVis"),
+  titlePanel("Arrests 2010"),
+  helpText("Create parallel coordinates chart with 
+        information from the 2010 US Arrests"),
+  showOutput("parcor","parcoords"),
+  hr(),
   
-  sidebarLayout(
-    sidebarPanel(
-      helpText("Create demographic maps with 
-        information from the 2010 US Census."),
-      
-      selectInput("var", 
-                  label = "Choose a variable to display",
-                  choices = c("Percent White", "Percent Black",
-                              "Percent Hispanic", "Percent Asian"),
-                  selected = "Percent White"),
-      
-      sliderInput("range", 
-                  label = "Range of interest:",
-                  min = 0, max = 100, value = c(0, 100))
+  fluidRow(
+    column(6,
+           h4("Crimes Explorer"),
+           selectizeInput(
+             'crime', "",choices = colnames(arrests[,-c(1,2)]), 
+             multiple = TRUE
+           ),
+           br()
     ),
+    column(6,
+           h4("States Explorer"),
+           selectizeInput(
+             'state', "",choices = as.character(arrests$State), 
+             selected=as.character(arrests$State),
+             multiple = TRUE
+           )
     
-    mainPanel(plotOutput("map"))
-  )
+  ))
+    
+    #mainPanel(showOutput("parcor","parcoords"))
+  
 ))
